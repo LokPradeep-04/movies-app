@@ -1,12 +1,16 @@
 import React, { useEffect, useState } from 'react'
 import Navbar from '../components/Navbar'
 import MovieCard from '../components/MovieCard'
+import Cookies from 'js-cookie'
 function Popular() {
+  const token = Cookies.get("abcde")
   const [movies,setMovies] = useState([])
+
+
   useEffect(()=>{
     fetch("https://apis.ccbp.in/movies-app/popular-movies",{
       headers:{
-         Authorization: "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InJhaHVsIiwicm9sZSI6IlBSSU1FX1VTRVIiLCJpYXQiOjE2MjMwNjU1MzJ9.D13s5wN3Oh59aa_qtXMo3Ec4wojOx0EZh8Xr5C5sRkU"
+         Authorization: `Bearer ${token}`
       }
     })
     .then(res=>res.json())

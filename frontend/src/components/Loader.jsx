@@ -1,11 +1,9 @@
-import React from 'react'
-
 function Loader() {
   return (
-    <div className="flex justify-center py-10">
-    <div className="w-10 h-10 border-4 border-red-500 border-t-transparent rounded-full animate-spin"></div>
-  </div>
-  )
+    <div className="flex items-center justify-center min-h-screen bg-[#181818]">
+      <div className="w-10 h-10 border-4 border-red-500 border-t-transparent rounded-full animate-spin"></div>
+    </div>
+  );
 }
 
-export default Loader
+export default Loader;

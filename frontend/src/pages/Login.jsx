@@ -27,7 +27,6 @@ const setCookies = (jwtToken) =>{
   }
   const onSubmitForm = async(e) =>{
     e.preventDefault()
-
     const obj ={
       username:email,
       password:pass
@@ -40,9 +39,8 @@ const setCookies = (jwtToken) =>{
 
     const response = await fetch("https://apis.ccbp.in/login",options)
     const data = await response.json()
-    console.log(data)
     if(response.ok){
-  setCookies(data.jwt_token)
+       setCookies(data.jwt_token)
     }else{
      errorMessage(data.error_msg)
     }
@@ -98,7 +96,7 @@ if (token !== undefined){
           </button>
 
         </form>
-        <p>{eee}</p>
+        <p className='text-center text-red-500'>{eee}</p>
         <p className="text-gray-400 text-sm text-center mt-6">
           Don’t have an account?{" "}
           <Link to="/signup"  className="text-red-500 hover:underline ">

@@ -3,12 +3,16 @@ import logo from './logo.png'
 import search from './search.png'
 import avatar from './avatar.png'
 import hero_img from './hero.png'
+import not_found from './notfound.png'
+import searchnotfound from './searchnotfound.png'
 const images = {
     background_image,
     logo,
     search,
     avatar,
-    hero_img
+    hero_img,
+    not_found,
+    searchnotfound
     
 
 

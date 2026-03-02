@@ -1,12 +1,14 @@
 import { useState,useEffect } from 'react'
 import MovieCard from './MovieCard'
+import  Cookies from 'js-cookie'
 import Slider from "react-slick";
 function TrendingCarousel() {
   const [movies,setMovies] = useState([])
   useEffect(()=>{
+    const token = Cookies.get("abcde")
     fetch("https://apis.ccbp.in/movies-app/trending-movies",{
       headers :{
-        Authorization : "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InJhaHVsIiwicm9sZSI6IlBSSU1FX1VTRVIiLCJpYXQiOjE2MjMwNjU1MzJ9.D13s5wN3Oh59aa_qtXMo3Ec4wojOx0EZh8Xr5C5sRkU"
+        Authorization : `Bearer ${token}`
       }
     })
     .then(res=>res.json())
