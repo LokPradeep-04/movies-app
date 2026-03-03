@@ -8,7 +8,7 @@ const MovieDetails=()=> {
   const { id } = useParams();
   const [movie, setMovie] = useState([]);
   const [status, setStatus] = useState("loading");
-  const token = Cookies.get("abcde")
+  const token = Cookies.get("accessToken")
   useEffect(() => {
     const fetchMovie = async () => {
       try {

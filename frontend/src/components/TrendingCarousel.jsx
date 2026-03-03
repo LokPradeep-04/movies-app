@@ -12,10 +12,10 @@ const TrendingCarousel = () =>{
     const fetchTrending = async () => {
       setLoading(true);
 
-      const token = Cookies.get("abcde");
+      const token = Cookies.get("accessToken");
 
       const response = await fetch(
-        "https://apis.ccbp.in/movies-app/trending-movies",
+        "http://localhost:3000/api/movies/trending",
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -24,7 +24,7 @@ const TrendingCarousel = () =>{
       );
 
       const data = await response.json();
-      setMovies(data.results || []);
+      setMovies(data);
       setLoading(false);
     };
 
@@ -48,7 +48,7 @@ const TrendingCarousel = () =>{
       ) : (
         <Slider {...settings}>
           {movies.map((movie) => (
-            <MovieCard key={movie.id} movie={movie} />
+            <MovieCard key={movie._id} movie={movie} />
           ))}
         </Slider>
       )}

@@ -5,17 +5,17 @@ import Slider from "react-slick";
 import Loader from "./Loader";
 
 const OriginalsCarousel = ()=> {
-  const token = Cookies.get("abcde");
+  const token = Cookies.get("accessToken");
 
   const [movies, setMovies] = useState([]);
   const [loading, setLoading] = useState(true);
-
+  
   useEffect(() => {
     const fetchOriginals = async () => {
       setLoading(true);
 
       const response = await fetch(
-        "https://apis.ccbp.in/movies-app/originals",
+        "http://localhost:3000/api/movies/originals",
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -24,7 +24,7 @@ const OriginalsCarousel = ()=> {
       );
 
       const data = await response.json();
-      setMovies(data.results || []);
+      setMovies(data);
       setLoading(false);
     };
 
@@ -49,7 +49,7 @@ const OriginalsCarousel = ()=> {
       ) : (
         <Slider {...settings}>
           {movies.map((movie) => (
-            <MovieCard key={movie.id} movie={movie} />
+            <MovieCard key={movie._id} movie={movie} />
           ))}
         </Slider>
       )}

@@ -12,7 +12,7 @@ const Search = () => {
   const [emptySearch, setEmptySearch] = useState(false)
   const [loading, setLoading] = useState(false)
 
-  const token = Cookies.get("abcde")
+  const token = Cookies.get("accessToken")
 
   const fetchedData = async () => {
 

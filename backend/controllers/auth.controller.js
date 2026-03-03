@@ -3,7 +3,6 @@ const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken')
 const signup =async (req,res)=>{
  const {username,email,password} = req.body
- 
     if(!username || !email || !password){
         return res.status(400).json({message: "Please provide the input elements"})
     }  
@@ -33,9 +32,9 @@ const login = async (req,res)=>{
     const existingUser = await userSchema.findOne({email})
 
     if(!existingUser){
-        return res.status(401).json({message : "User not exits Please signup"})
+        return res.status(401).json({message : "User not exits please signup"})
     }
-    const isVerified = bcrypt.compare(password, existingUser.password)
+    const isVerified = await bcrypt.compare(password, existingUser.password)
     if(!isVerified){
         return res.status(404).json({message:"Invalid Credentails"})
     }

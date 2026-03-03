@@ -6,7 +6,7 @@ const Account = () => {
   const navigate = useNavigate();
 
   const onLogout = () => {
-    Cookies.remove("abcde");
+    Cookies.remove("accessToken");
     navigate("/login");
   };
 
