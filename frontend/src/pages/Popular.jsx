@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import Navbar from '../components/Navbar'
 import MovieCard from '../components/MovieCard'
 import Cookies from 'js-cookie'
-function Popular() {
+const Popular=()=> {
   const token = Cookies.get("abcde")
   const [movies,setMovies] = useState([])
 

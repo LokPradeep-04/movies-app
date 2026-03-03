@@ -1,7 +1,7 @@
 import React from "react";
 import images from "../assets/assets";
 
-function Hero() {
+const Hero = ()=> {
   return (
     <div
      className="relative w-full h-[85vh] bg-cover bg-center flex items-center px-12"

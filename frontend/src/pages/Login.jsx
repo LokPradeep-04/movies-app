@@ -2,10 +2,11 @@ import { Link, Navigate } from 'react-router-dom'
 import images from '../assets/assets'
 import { useState } from 'react'
 import Cookies from 'js-cookie'
+
 import { useNavigate } from 'react-router-dom'
 const Login =()=> {
 const [email, setEmail] = useState('')
-const [pass, setPass] = useState('')
+const [password, setPassword] = useState('')
 const [eee, setEee] = useState('')
  const navigae =useNavigate()
   
@@ -23,22 +24,26 @@ const setCookies = (jwtToken) =>{
      setEee(error)
   } 
   const onPassword =(e) =>{
-   setPass(e.target.value)
+   setPassword(e.target.value)
   }
   const onSubmitForm = async(e) =>{
     e.preventDefault()
     const obj ={
-      username:email,
-      password:pass
+      email,
+      password
     }
-
     const options ={
       method:"POST",
+      headers: {
+    "Content-Type": "application/json"
+  },
+
       body: JSON.stringify(obj)
     }
 
-    const response = await fetch("https://apis.ccbp.in/login",options)
+    const response = await fetch("http://localhost:3000/api/auth/login",options)
     const data = await response.json()
+
     if(response.ok){
        setCookies(data.jwt_token)
     }else{
@@ -84,7 +89,7 @@ if (token !== undefined){
               type="password"
               className="w-full mt-1 p-3 bg-gray-700 text-white rounded-lg outline-none focus:ring-2 focus:ring-red-500"
               placeholder="Enter Password"
-              required onChange={onPassword} value={pass}
+              required onChange={onPassword} value={password}
             />
           </div>
 

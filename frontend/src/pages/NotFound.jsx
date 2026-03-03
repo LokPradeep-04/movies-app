@@ -1,7 +1,7 @@
 import React from 'react'
 import images from '../assets/assets'
 import { useNavigate } from 'react-router'
-function NotFound() {
+const NotFound=()=> {
     const navigate = useNavigate()
   return (
     <div style={{ backgroundImage: `url(${images.not_found})` }} className="min-h-screen bg-cover bg-center flex flex-col  justify-center items-center px-4 sm:px-6">

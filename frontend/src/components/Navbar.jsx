@@ -61,7 +61,10 @@ const Navbar = (props) => {
     )
   }
 }
-
+ 
+const handleAvatar = ()=>{
+  navigate('/account')
+}
 
 
   return (
@@ -94,9 +97,10 @@ const Navbar = (props) => {
       </div>
 
       <div className='flex items-center gap-10'>
-
         {renderSearchImage()}
-        <img src={images.avatar} className='w-9 h-9 rounded-full cursor-pointer' />
+
+        <button onClick={handleAvatar}><img src={images.avatar} className='w-9 h-9 rounded-full cursor-pointer' /></button>
+        
       </div>
 
     </div>

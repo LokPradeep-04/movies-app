@@ -8,6 +8,7 @@ import MovieDetails from './pages/MovieDetails'
 import NotFound from './pages/NotFound'
 
 import Search from './pages/Search'
+import Account from './pages/Account'
 
 const  App =()=> {
 
@@ -22,6 +23,7 @@ const  App =()=> {
     <Route path='/popular' element={<ProtectedRoute><Popular/></ProtectedRoute>}/>
     <Route path="/movies/:id" element={<ProtectedRoute><MovieDetails /></ProtectedRoute>} />
     <Route path='/search' element={<ProtectedRoute><Search/></ProtectedRoute>}/>
+    <Route path='/account' element={<ProtectedRoute><Account/></ProtectedRoute>}/>
     <Route path='*' element={<NotFound/>} />
    </Routes>
   

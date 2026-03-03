@@ -1,8 +1,46 @@
 import React from 'react'
 import images from '../assets/assets'
 import { Link } from 'react-router-dom'
+import { useState } from 'react'
 
-function Signup() {
+
+const Signup=()=> {
+  const [username,setUsername] = useState('')
+  const [email,setEmail] = useState('')
+  const [password,setPassword] = useState('')
+
+  const handleUsername = (e)=>{
+    setUsername(e.target.value)
+
+  }
+  const handleEmail = (e)=>{
+    setEmail(e.target.value)
+  }
+  const handlePassword = (e)=>{
+    setPassword(e.target.value)
+  }
+  const onSubmitForm = async (e)=>{
+    e.preventDefault()
+    const obj ={
+      username,
+      email,
+      password
+    }
+    const options = {
+      method : "POST",
+       headers: {
+    "Content-Type": "application/json"
+  },
+
+      body: JSON.stringify(obj)
+    }
+
+   const response = await fetch("http://localhost:3000/api/auth/signup",options)
+   const data = await response.json()
+
+
+  }
+
   return (
     <div
       className="min-h-screen bg-cover bg-center flex justify-center items-center px-4 sm:px-6 relative"
@@ -17,7 +55,7 @@ function Signup() {
           Create Account
         </h2>
 
-        <form className="space-y-3 sm:space-x-4">
+        <form className="space-y-3 sm:space-x-4" onSubmit={onSubmitForm}>
 
           <div>
             <label className="text-gray-300 text-sm">Username</label>
@@ -26,6 +64,7 @@ function Signup() {
               className="w-full mt-1 p-3 bg-gray-700 text-white rounded-lg outline-none focus:ring-2 focus:ring-red-500"
               placeholder="Enter Username"
               required
+              onChange={handleUsername} value={username}
             />
           </div>
 
@@ -36,6 +75,7 @@ function Signup() {
               className="w-full mt-1 p-3 bg-gray-700 text-white rounded-lg outline-none focus:ring-2 focus:ring-red-500"
               placeholder="Enter your Email"
               required
+              onChange={handleEmail}  value={email}
             />
           </div>
 
@@ -46,10 +86,11 @@ function Signup() {
               className="w-full mt-1 p-3 bg-gray-700 text-white rounded-lg outline-none focus:ring-2 focus:ring-red-500"
               placeholder="Password"
               required
+              onChange={handlePassword} value={password}
             />
           </div>
 
-          <div>
+          {/* <div>
             <label className="text-gray-300 text-sm">Confirm Password</label>
             <input
               type="password"
@@ -57,7 +98,7 @@ function Signup() {
               placeholder="Confirm Password"
               required
             />
-          </div>
+          </div> */}
 
           <button
             type="submit"

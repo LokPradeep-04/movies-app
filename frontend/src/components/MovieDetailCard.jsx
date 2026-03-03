@@ -1,7 +1,7 @@
 import Navbar from "./Navbar";
 import { useNavigate } from "react-router-dom";
 
-function MovieDetailCard({ movie }) {
+const MovieDetailCard = ({ movie })=> {
   const navigate = useNavigate();
 
   if (!movie) return null;

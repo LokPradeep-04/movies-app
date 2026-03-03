@@ -4,7 +4,7 @@ import Cookies from 'js-cookie'
 import Loader from '../components/Loader'
 import MovieDetailCard from "../components/MovieDetailCard";
 
-function MovieDetails() {
+const MovieDetails=()=> {
   const { id } = useParams();
   const [movie, setMovie] = useState([]);
   const [status, setStatus] = useState("loading");
