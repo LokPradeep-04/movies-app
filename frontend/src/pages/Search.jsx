@@ -34,12 +34,12 @@ const Search = () => {
     }
 
     const response = await fetch(
-      `https://apis.ccbp.in/movies-app/movies-search?search=${searchInput}`,
+      `http://localhost:3000/api/movies/search?q=${searchInput}`,
       options
     )
 
     const data = await response.json()
-    setMovies(data.results || [])
+    setMovies(data)
     setLoading(false)
   }
   
@@ -61,7 +61,7 @@ const Search = () => {
       ):movies.length > 0 ? (
         <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-6 p-6 pt-32 pb-20">
           {movies.map(movie => (
-            <MovieCard key={movie.id} movie={movie} />
+            <MovieCard key={movie._id} movie={movie} />
           ))}
         </div>
 

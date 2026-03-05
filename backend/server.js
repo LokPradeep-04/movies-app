@@ -1,23 +1,21 @@
 const express = require('express')
 const cors = require("cors")
-require("dotenv").config();
+require("dotenv").config()
+
 const connectDB = require('./config/db')
-const app = express()
+
 const authRouter = require('./routes/auth.routes')
-const trendingRouter = require('./routes/trending.route') 
-const originalRouter = require('./routes/original.route')
-const popularRouter = require('./routes/popular.route')
+const movieRouter = require('./routes/movie.routes')
+
+const app = express()
 
 app.use(express.json())
 app.use(cors())
-connectDB();
 
-app.use('/api/auth',authRouter)
-app.use('/api/movies', trendingRouter)
-app.use('/api/movies',originalRouter)
-app.use('/api/movies',popularRouter)
-app.listen(3000,()=>{
-    console.log("Server is Running")
+connectDB()
+
+app.use('/api/auth', authRouter)
+app.use('/api/movies', movieRouter)
+app.listen(3000, () => {
+  console.log("Server is Running")
 })
-
-

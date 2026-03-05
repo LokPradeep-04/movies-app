@@ -4,31 +4,43 @@ import Cookies from "js-cookie";
 import Slider from "react-slick";
 import Loader from "./Loader";
 
-const OriginalsCarousel = ()=> {
-  const token = Cookies.get("accessToken");
+const OriginalsCarousel = () => {
 
   const [movies, setMovies] = useState([]);
   const [loading, setLoading] = useState(true);
-  
+
   useEffect(() => {
+
     const fetchOriginals = async () => {
-      setLoading(true);
 
-      const response = await fetch(
-        "http://localhost:3000/api/movies/originals",
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
+      try {
+
+        const token = Cookies.get("accessToken");
+
+        const response = await fetch(
+          "http://localhost:3000/api/movies?category=originals",
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
+
+        const data = await response.json();
+
+        if (response.ok) {
+          setMovies(data);
         }
-      );
 
-      const data = await response.json();
-      setMovies(data);
+      } catch (error) {
+        console.log("Error fetching originals:", error);
+      }
+
       setLoading(false);
     };
 
     fetchOriginals();
+
   }, []);
 
   const settings = {
@@ -41,11 +53,11 @@ const OriginalsCarousel = ()=> {
 
   return (
     <div className="px-12 mb-20">
+
       <h2 className="text-white text-2xl mb-4">Originals</h2>
 
       {loading ? (
-        <Loader/>
-
+        <Loader />
       ) : (
         <Slider {...settings}>
           {movies.map((movie) => (
@@ -53,8 +65,9 @@ const OriginalsCarousel = ()=> {
           ))}
         </Slider>
       )}
+
     </div>
   );
-}
+};
 
 export default OriginalsCarousel;

@@ -15,7 +15,7 @@ const TrendingCarousel = () =>{
       const token = Cookies.get("accessToken");
 
       const response = await fetch(
-        "http://localhost:3000/api/movies/trending",
+        "http://localhost:3000/api/movies?category=trending",
         {
           headers: {
             Authorization: `Bearer ${token}`,

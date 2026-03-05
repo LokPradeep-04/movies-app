@@ -1,12 +1,14 @@
 import { useNavigate } from "react-router-dom";
 
+const MovieCard = ({ movie }) => {
 
-const MovieCard = ({ movie }) =>{
   const navigate = useNavigate();
+
   return (
-    <div 
-    onClick={()=>navigate(`/movies/${movie.id}`)}
-    className="min-w-50 cursor-pointer transition-transform duration-300 hover:scale-110 px-3">
+    <div
+      onClick={() => navigate(`/movies/${movie._id}`)}
+      className="min-w-50 cursor-pointer transition-transform duration-300 hover:scale-110 px-3"
+    >
       <img
         src={movie.poster_path}
         alt={movie.title}
@@ -14,6 +16,6 @@ const MovieCard = ({ movie }) =>{
       />
     </div>
   );
-}
+};
 
 export default MovieCard;

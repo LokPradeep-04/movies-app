@@ -5,7 +5,6 @@ import avatar from './avatar.png'
 import avatar2 from './avatar2.png'
 import avatar3 from './avatar3.png'
 import avatar4 from './avatar4.png'
-import hero_img from './hero.png'
 import not_found from './notfound.png'
 import searchnotfound from './searchnotfound.png'
 const images = {
@@ -13,7 +12,6 @@ const images = {
     logo,
     search,
     avatar,
-    hero_img,
     not_found,
     searchnotfound,
     avatar2,
