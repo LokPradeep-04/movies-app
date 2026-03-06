@@ -18,6 +18,14 @@ const userSchema = new mongoose.Schema(
       required: true,
       minlength: 4,
     },
+    watchlist:[
+      {
+        movieId: String,
+        title: String,
+        poster_path: String,
+        backdrop_path: String
+      }
+    ]
   },
   {
     timestamps: true,

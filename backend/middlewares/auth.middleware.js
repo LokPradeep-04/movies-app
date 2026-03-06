@@ -9,7 +9,7 @@ const AuthMiddleware = async (req, res, next) => {
         }
         const token = authHeader.split(" ")[1];
         if (!token) {
-            return res.status(401).json({ error: "Unauthorized token missing" })
+            return res.status(401).json({ error: "Unauthorized token is missing" })
         }
         const decoded = await jwt.verify(token, process.env.JWT_SECRET);
         const user = await User.findById(decoded.userId).select("-password");

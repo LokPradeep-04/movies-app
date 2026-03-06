@@ -1,45 +1,58 @@
-import React from 'react'
 import images from '../assets/assets'
 import { Link } from 'react-router-dom'
 import { useState } from 'react'
-
-
+import { useNavigate } from 'react-router-dom'
+import { toast } from "sonner";
 const Signup=()=> {
   const [username,setUsername] = useState('')
   const [email,setEmail] = useState('')
   const [password,setPassword] = useState('')
-
+  const [error,setError] = useState("")
+  const navigate = useNavigate()
   const handleUsername = (e)=>{
     setUsername(e.target.value)
-
+    setError("")
   }
   const handleEmail = (e)=>{
     setEmail(e.target.value)
+    setError("")
   }
   const handlePassword = (e)=>{
     setPassword(e.target.value)
+    setError("")
   }
   const onSubmitForm = async (e)=>{
-    e.preventDefault()
-    const obj ={
+  e.preventDefault()
+
+  try{
+    const obj = {
       username,
       email,
       password
     }
+
     const options = {
       method : "POST",
-       headers: {
-    "Content-Type": "application/json"
-  },
-
+      headers: {
+        "Content-Type": "application/json"
+      },
       body: JSON.stringify(obj)
     }
 
-   const response = await fetch("http://localhost:3000/api/auth/signup",options)
-   const data = await response.json()
+    const response = await fetch("http://localhost:3000/api/auth/signup", options)
+    const data = await response.json()
 
+    if(response.ok){
+      navigate("/login")
+      toast.success("Account created successfully 🎉")
+    }else{
+      setError(data.message)
+    }
 
+  }catch(err){
+    setError("Something went wrong")
   }
+}
 
   return (
     <div
@@ -89,17 +102,7 @@ const Signup=()=> {
               onChange={handlePassword} value={password}
             />
           </div>
-
-          {/* <div>
-            <label className="text-gray-300 text-sm">Confirm Password</label>
-            <input
-              type="password"
-              className="w-full mt-1 p-3 bg-gray-700 text-white rounded-lg outline-none focus:ring-2 focus:ring-red-500"
-              placeholder="Confirm Password"
-              required
-            />
-          </div> */}
-
+          {error && <p className="text-red-500 text-sm text-center">{error}</p>}
           <button
             type="submit"
             className="w-full bg-red-600 hover:bg-red-700 text-white py-3 rounded-lg font-medium transition mt-2"

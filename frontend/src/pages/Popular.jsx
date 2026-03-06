@@ -36,7 +36,6 @@ const Popular = () => {
     fetchPopular();
 
   }, []);
-console.log(movies)
   return (
     <div className="min-h-screen bg-[#181818]">
 

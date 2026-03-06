@@ -10,7 +10,7 @@ const signup =async (req,res)=>{
 
     const oneDocument = await User.findOne({email})
     if(oneDocument){
-    return res.status(401).json({message : "user already exixts"})
+    return res.status(401).json({message : "user already exists"})
     }
 
     const hashPassword = await bcrypt.hash(password,10)

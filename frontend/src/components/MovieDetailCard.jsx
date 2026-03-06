@@ -1,5 +1,7 @@
 import Navbar from "./Navbar";
 import { useNavigate } from "react-router-dom";
+import Cookies from "js-cookie";
+import { toast } from "sonner";
 
 const MovieDetailCard = ({ movie }) => {
 
@@ -7,11 +9,49 @@ const MovieDetailCard = ({ movie }) => {
 
   if (!movie) return null;
 
+  const addToWatchlist = async () => {
+
+    const token = Cookies.get("accessToken");
+
+    const movieData = {
+      movieId: movie._id,
+      title: movie.title,
+      poster_path: movie.poster_path,
+      backdrop_path: movie.backdrop_path
+    };
+
+    try {
+
+      const res = await fetch(
+        "http://localhost:3000/api/watchlist",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`
+          },
+          body: JSON.stringify(movieData)
+        }
+      );
+
+      const data = await res.json();
+
+      if (res.ok) {
+        toast.success("Added to Watchlist ❤️");
+      } else {
+        toast.error(data.message);
+      }
+
+    } catch {
+      toast.error("Something went wrong");
+    }
+
+  };
+
   return (
     <div className="bg-black text-white min-h-screen">
 
       <Navbar />
-
 
       <div
         className="relative h-[70vh] bg-cover bg-center"
@@ -20,7 +60,6 @@ const MovieDetailCard = ({ movie }) => {
 
         <div className="absolute inset-0 bg-linear-to-r from-black via-black/70 to-transparent" />
 
-       
         <div className="relative z-10 flex flex-col justify-center h-full px-10 max-w-2xl">
 
           <h1 className="text-4xl md:text-5xl font-bold mb-5">
@@ -37,7 +76,6 @@ const MovieDetailCard = ({ movie }) => {
 
           <div className="flex gap-4">
 
-          
             <a
               href={movie.trailer_url}
               target="_blank"
@@ -46,6 +84,13 @@ const MovieDetailCard = ({ movie }) => {
             >
               ▶ Play Trailer
             </a>
+
+            <button
+              onClick={addToWatchlist}
+              className="bg-red-600 px-6 py-2 rounded hover:bg-red-700 transition"
+            >
+              Add to Watchlist
+            </button>
 
             <button
               onClick={() => navigate(-1)}

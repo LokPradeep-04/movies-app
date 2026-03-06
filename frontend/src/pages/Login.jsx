@@ -2,7 +2,7 @@ import { Link, Navigate, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import Cookies from "js-cookie";
 import images from "../assets/assets";
-
+import { toast } from "sonner";
 const Login = () => {
   const navigate = useNavigate();
 
@@ -12,6 +12,7 @@ const Login = () => {
 
   const handleLoginSuccess = (token) => {
     Cookies.set("accessToken", token, { expires: 7 });
+    toast.success("Login successful 🎉");
     navigate("/");
   };
 

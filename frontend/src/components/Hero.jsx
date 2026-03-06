@@ -21,7 +21,7 @@ const Hero = () => {
 
       const data = await res.json();
 
-      setMovie(data[1]);
+      setMovie(data[2]);
     };
 
     fetchHeroMovie();
