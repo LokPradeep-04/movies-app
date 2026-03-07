@@ -42,5 +42,19 @@ const getWatchlist = async (req,res)=>{
   }
 }
 
+const removeFromWatchlist = async (req,res)=>{
+  try {
+    const {movieId} = req.params;
+    const user = await User.findById(req.user.id)
 
-module.exports = {addToWatchlist,getWatchlist}
+    user.watchlist = user.watchlist.filter(
+      (movie) => movie.movieId !== movieId
+    )
+    await user.save();
+    res.json({ message: "Movie removed from watchlist" });
+  } catch (error) {
+    res.status(500).json({ message: "Server error" });
+  }
+}
+
+module.exports = {addToWatchlist,getWatchlist,removeFromWatchlist}

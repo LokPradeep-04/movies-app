@@ -39,12 +39,6 @@ const movieSchema = new mongoose.Schema(
     enum: ["trending", "popular", "originals"],
     required: true
   },
-
-  similar_movies: {
-    type: Array,
-    default: []
-  }
-
 },
 { timestamps: true }
 )

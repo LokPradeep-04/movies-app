@@ -1,3 +1,4 @@
+import API_BASE_URL from "../config/config";
 import Navbar from "../components/Navbar";
 import Cookies from "js-cookie";
 import { useEffect,useState } from "react";
@@ -14,7 +15,7 @@ const Account = () => {
 
   useEffect(()=>{
     const handleProfile = async ()=>{
-      const res = await fetch("http://localhost:3000/api/auth/profile", {
+      const res = await fetch(`${API_BASE_URL}/api/auth/profile`, {
          headers: {
             Authorization: `Bearer ${token}`,
           },

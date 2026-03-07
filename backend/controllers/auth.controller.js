@@ -37,7 +37,7 @@ const login = async (req,res)=>{
     }
     const isVerified = await bcrypt.compare(password, existingUser.password)
     if(!isVerified){
-        return res.status(404).json({message:"Invalid Credentails"})
+        return res.status(401).json({message:"Invalid Credentails"})
     }
     else{
         const token = jwt.sign({userId: existingUser._id}, process.env.JWT_SECRET, {expiresIn : '7d'})

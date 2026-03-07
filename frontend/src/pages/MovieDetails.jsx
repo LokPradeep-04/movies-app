@@ -1,3 +1,4 @@
+import API_BASE_URL from "../config/config";
 import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import Cookies from "js-cookie";
@@ -19,7 +20,7 @@ const MovieDetails = () => {
       try {
 
         const res = await fetch(
-          `http://localhost:3000/api/movies/${id}`,
+          `${API_BASE_URL}/api/movies/${id}`,
           {
             headers: {
               Authorization: `Bearer ${token}`,

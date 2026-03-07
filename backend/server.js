@@ -7,6 +7,7 @@ const connectDB = require('./config/db')
 const authRouter = require('./routes/auth.routes')
 const movieRouter = require('./routes/movie.routes')
 const watchlistRouter = require('./routes/watchlist.routes')
+const adminRouter = require('./routes/admin.routes')
 const app = express()
 
 app.use(express.json())
@@ -17,6 +18,8 @@ connectDB()
 app.use('/api/auth', authRouter)
 app.use('/api/movies', movieRouter)
 app.use('/api/watchlist',watchlistRouter)
+app.use('/api/admin',adminRouter)
+
 app.listen(3000, () => {
   console.log("Server is Running")
 })

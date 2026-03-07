@@ -18,6 +18,11 @@ const userSchema = new mongoose.Schema(
       required: true,
       minlength: 4,
     },
+    role:{
+      type : String,
+      enum : ["user","admin"],
+      default:"user"
+    },
     watchlist:[
       {
         movieId: String,

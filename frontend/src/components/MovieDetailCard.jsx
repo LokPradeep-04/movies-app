@@ -1,45 +1,111 @@
+import API_BASE_URL from "../config/config";
 import Navbar from "./Navbar";
 import { useNavigate } from "react-router-dom";
 import Cookies from "js-cookie";
 import { toast } from "sonner";
+import { useEffect, useState } from "react";
 
 const MovieDetailCard = ({ movie }) => {
 
   const navigate = useNavigate();
+  const [isSaved, setIsSaved] = useState(false);
+
+  const token = Cookies.get("accessToken");
 
   if (!movie) return null;
 
-  const addToWatchlist = async () => {
+  useEffect(() => {
 
-    const token = Cookies.get("accessToken");
+    const checkWatchlist = async () => {
 
-    const movieData = {
-      movieId: movie._id,
-      title: movie.title,
-      poster_path: movie.poster_path,
-      backdrop_path: movie.backdrop_path
+      try {
+
+        const res = await fetch(
+          `${API_BASE_URL}/api/watchlist`,
+          {
+            headers: {
+              Authorization: `Bearer ${token}`
+            }
+          }
+        );
+
+        const data = await res.json();
+
+        if (res.ok) {
+
+          const exists = data.some(
+            (item) => item.movieId === movie._id
+          );
+
+          setIsSaved(exists);
+
+        }
+
+      } catch (error) {
+        console.log(error);
+      }
+
     };
+
+    checkWatchlist();
+
+  }, [movie._id, token]);
+
+
+
+  const toggleWatchlist = async () => {
 
     try {
 
-      const res = await fetch(
-        "http://localhost:3000/api/watchlist",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`
-          },
-          body: JSON.stringify(movieData)
+      if (isSaved) {
+
+
+        const res = await fetch(
+          `${API_BASE_URL}/api/watchlist/${movie._id}`,
+          {
+            method: "DELETE",
+            headers: {
+              Authorization: `Bearer ${token}`
+            }
+          }
+        );
+
+        if (res.ok) {
+          toast.success("Removed from Watchlist");
+          setIsSaved(false);
         }
-      );
 
-      const data = await res.json();
-
-      if (res.ok) {
-        toast.success("Added to Watchlist ❤️");
       } else {
-        toast.error(data.message);
+
+        // ADD MOVIE
+        const movieData = {
+          movieId: movie._id,
+          title: movie.title,
+          poster_path: movie.poster_path,
+          backdrop_path: movie.backdrop_path
+        };
+
+        const res = await fetch(
+          `${API_BASE_URL}/api/watchlist`,
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${token}`
+            },
+            body: JSON.stringify(movieData)
+          }
+        );
+
+        const data = await res.json();
+
+        if (res.ok) {
+          toast.success("Added to Watchlist ");
+          setIsSaved(true);
+        } else {
+          toast.error(data.message);
+        }
+
       }
 
     } catch {
@@ -47,6 +113,7 @@ const MovieDetailCard = ({ movie }) => {
     }
 
   };
+
 
   return (
     <div className="bg-black text-white min-h-screen">
@@ -86,10 +153,14 @@ const MovieDetailCard = ({ movie }) => {
             </a>
 
             <button
-              onClick={addToWatchlist}
-              className="bg-red-600 px-6 py-2 rounded hover:bg-red-700 transition"
+              onClick={toggleWatchlist}
+              className={`px-6 py-2 rounded transition ${
+                isSaved
+                  ? "bg-green-600 hover:bg-green-700"
+                  : "bg-red-600 hover:bg-red-700"
+              }`}
             >
-              Add to Watchlist
+              {isSaved ? " Remove from Watchlist" : " Add to Watchlist"}
             </button>
 
             <button
@@ -106,11 +177,11 @@ const MovieDetailCard = ({ movie }) => {
 
       <div className="px-10 py-12">
 
-        <h2 className="text-xl font-semibold mb-6">
+        <h2 className="text-xl font-semibold mb-8">
           More Like This
         </h2>
 
-        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4">
+        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-5">
 
           {movie.similar_movies?.map((item, index) => (
             <img

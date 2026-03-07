@@ -1,3 +1,4 @@
+import API_BASE_URL from "../config/config";
 import { useState } from 'react'
 import Cookies from 'js-cookie'
 import Navbar from '../components/Navbar'
@@ -34,7 +35,7 @@ const Search = () => {
     }
 
     const response = await fetch(
-      `http://localhost:3000/api/movies/search?q=${searchInput}`,
+      `${API_BASE_URL}/api/movies/search?q=${searchInput}`,
       options
     )
 

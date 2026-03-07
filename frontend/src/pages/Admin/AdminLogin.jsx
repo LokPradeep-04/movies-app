@@ -1,11 +1,10 @@
 import { Link, Navigate, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import Cookies from "js-cookie";
-import images from "../assets/assets";
 import { toast } from "sonner";
-import API_BASE_URL from "../config/config";
+import API_BASE_URL from "../../config/config";
 
-const Login = () => {
+const AdminLogin = () => {
   const navigate = useNavigate();
 
   const [email, setEmail] = useState("");
@@ -24,15 +23,28 @@ const Login = () => {
         body: JSON.stringify({ email, password }),
       });
       const data = await response.json();
-
-
       if (response.ok) {
-     
-        Cookies.set("accessToken", data.token, { expires: 7 });
-        toast.success("Login successful 🎉");
-        navigate("/");
-      } else {
+        const profileResponse = await fetch(`${API_BASE_URL}/api/auth/profile`, {
+          headers: {
+            Authorization: `Bearer ${data.token}`,
+          },
+        });
+
+        const profileData = await profileResponse.json();
+
    
+        if (profileData.user.role === "admin") {
+        
+          Cookies.set("accessToken", data.token, { expires: 7 });
+          toast.success("Welcome Admin! 🎉");
+          navigate("/admin/dashboard");
+        } else {
+         
+          setErrorMessage("Access denied. You are not an admin.");
+        }
+
+      } else {
+        
         setErrorMessage(data.message);
       }
 
@@ -41,39 +53,32 @@ const Login = () => {
     }
   };
 
- 
   const token = Cookies.get("accessToken");
   if (token) {
-    return <Navigate to="/" replace />;
+    return <Navigate to="/admin/dashboard" replace />;
   }
 
   return (
-    <div
-      className="min-h-screen bg-cover bg-center flex justify-center items-center px-4 sm:px-6 relative"
-      style={{ backgroundImage: `url(${images.background_image})` }}
-    >
-      <Link to="/">
-        <img
-          src={images.logo}
-          alt="logo"
-          className="absolute top-6 left-6 w-24 sm:w-28"
-        />
-      </Link>
+    <div className="min-h-screen bg-[#181818] flex justify-center items-center px-4">
 
-      <div className="w-full max-w-md bg-black/60 backdrop-blur-sm p-6 sm:p-8 rounded shadow-xl">
+      <div className="w-full max-w-md bg-[#242424] p-8 rounded-lg shadow-xl">
 
-        <h2 className="text-white text-xl sm:text-2xl font-semibold text-center mb-6">
-          Login
+        <h2 className="text-white text-2xl font-semibold text-center mb-2">
+          Admin Panel
         </h2>
 
-        <form className="space-y-4" onSubmit={handleSubmit}>
+        <p className="text-gray-400 text-sm text-center mb-8">
+          Sign in with your admin credentials
+        </p>
+
+        <form className="space-y-5" onSubmit={handleSubmit}>
 
           <div>
             <label className="text-gray-300 text-sm">Email</label>
             <input
               type="email"
-              className="w-full mt-1 p-3 bg-gray-700 text-white rounded-lg outline-none focus:ring-2 focus:ring-red-500"
-              placeholder="Enter your email"
+              className="w-full mt-1 p-3 bg-[#181818] text-white rounded-lg outline-none focus:ring-2 focus:ring-red-500"
+              placeholder="Enter admin email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               required
@@ -84,39 +89,33 @@ const Login = () => {
             <label className="text-gray-300 text-sm">Password</label>
             <input
               type="password"
-              className="w-full mt-1 p-3 bg-gray-700 text-white rounded-lg outline-none focus:ring-2 focus:ring-red-500"
-              placeholder="Enter your password"
+              className="w-full mt-1 p-3 bg-[#181818] text-white rounded-lg outline-none focus:ring-2 focus:ring-red-500"
+              placeholder="Enter admin password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               required
             />
           </div>
 
+          {errorMessage && (
+            <p className="text-red-500 text-sm text-center">
+              {errorMessage}
+            </p>
+          )}
+
           <button
             type="submit"
             className="w-full bg-red-600 hover:bg-red-700 text-white py-3 rounded-lg font-medium transition"
           >
-            Login
+            Sign In
           </button>
 
         </form>
 
-        {errorMessage && (
-          <p className="text-center text-red-500 mt-4">
-            {errorMessage}
-          </p>
-        )}
-
-        <p className="text-gray-400 text-sm text-center mt-6">
-          Don't have an account?{" "}
-          <Link to="/signup" className="text-red-500 hover:underline">
-            Signup
-          </Link>
-        </p>
-
       </div>
+
     </div>
   );
 };
 
-export default Login;
+export default AdminLogin;

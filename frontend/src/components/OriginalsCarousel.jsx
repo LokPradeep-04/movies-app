@@ -1,3 +1,4 @@
+import API_BASE_URL from "../config/config";
 import { useState, useEffect } from "react";
 import MovieCard from "./MovieCard";
 import Cookies from "js-cookie";
@@ -18,7 +19,7 @@ const OriginalsCarousel = () => {
         const token = Cookies.get("accessToken");
 
         const response = await fetch(
-          "http://localhost:3000/api/movies?category=originals",
+          `${API_BASE_URL}/api/movies?category=originals`,
           {
             headers: {
               Authorization: `Bearer ${token}`,
