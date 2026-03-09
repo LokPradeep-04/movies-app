@@ -48,13 +48,16 @@ const Watchlist = () => {
 
   }, [token]);
 
-
   if (status === "loading") {
     return <Loader />;
   }
 
   if (status === "error") {
-    return <p className="text-red-500 p-10">Failed to load watchlist</p>;
+    return (
+      <p className="text-red-500 pt-28 px-6">
+        Failed to load watchlist
+      </p>
+    );
   }
 
   return (
@@ -62,27 +65,30 @@ const Watchlist = () => {
 
       <Navbar />
 
-      <div className="px-10 py-10">
+      <div className="pt-24 px-4 sm:px-8 md:px-12 pb-16">
+
+        {/* Back Button */}
         <button
           onClick={() => navigate(-1)}
-          className="mb-6 bg-gray-800 px-4 py-2 rounded hover:bg-gray-700 transition mt-14 ml-9"
+          className="mb-6 bg-gray-800 px-4 py-2 rounded hover:bg-gray-700 transition"
         >
           ← Back
         </button>
 
-        <h1 className="text-3xl font-bold mb-9 pl-9 ">
+        {/* Title */}
+        <h1 className="text-2xl md:text-3xl font-bold mb-8">
           My Watchlist
         </h1>
 
         {movies.length === 0 ? (
 
-          <p className="text-gray-400 text-center pt-10">
+          <p className="text-gray-400 text-center pt-10 text-lg">
             Your watchlist is empty.
           </p>
 
         ) : (
 
-          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-6 p-6">
+          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-5">
 
             {movies.map((movie) => (
               <MovieCard

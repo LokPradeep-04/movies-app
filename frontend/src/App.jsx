@@ -15,7 +15,7 @@ import AdminLogin from './pages/admin/AdminLogin'
 import AdminDashboard from './pages/admin/AdminDashboard'
 import AdminMovies from './pages/admin/AdminMovies'
 import AdminUsers from './pages/admin/AdminUsers'
-
+import Chatbot from './components/Chatbot'
 const App = () => {
   return (
     <>
@@ -42,6 +42,7 @@ const App = () => {
 
       </Routes>
       <Toaster position="top-right" richColors />
+      <Chatbot />
     </>
   )
 }

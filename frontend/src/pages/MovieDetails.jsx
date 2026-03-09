@@ -4,10 +4,12 @@ import { useEffect, useState } from "react";
 import Cookies from "js-cookie";
 import Loader from "../components/Loader";
 import MovieDetailCard from "../components/MovieDetailCard";
+import Navbar from "../components/Navbar";
 
 const MovieDetails = () => {
 
   const { id } = useParams();
+
   const [movie, setMovie] = useState(null);
   const [status, setStatus] = useState("loading");
 
@@ -40,6 +42,7 @@ const MovieDetails = () => {
       } catch {
         setStatus("error");
       }
+
     };
 
     fetchMovie();
@@ -51,10 +54,26 @@ const MovieDetails = () => {
   }
 
   if (status === "error") {
-    return <p className="text-red-500 p-10">Failed to load movie</p>;
+    return (
+      <p className="text-red-500 pt-28 px-6">
+        Failed to load movie
+      </p>
+    );
   }
 
-  return <MovieDetailCard movie={movie} />;
+  return (
+
+    <div className="min-h-screen bg-[#181818]">
+
+      <Navbar />
+
+      <div className="pt-24 px-4 sm:px-8 md:px-12 pb-16">
+        <MovieDetailCard movie={movie} />
+      </div>
+
+    </div>
+
+  );
 };
 
 export default MovieDetails;

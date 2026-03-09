@@ -34,10 +34,11 @@ const OriginalsCarousel = () => {
         }
 
       } catch (error) {
-        console.log("Error fetching originals:", error);
+        console.log(error);
       }
 
       setLoading(false);
+
     };
 
     fetchOriginals();
@@ -50,21 +51,59 @@ const OriginalsCarousel = () => {
     speed: 500,
     slidesToShow: 6,
     slidesToScroll: 2,
+    responsive: [
+
+      {
+        breakpoint: 1280,
+        settings: { slidesToShow: 5 }
+      },
+
+      {
+        breakpoint: 1024,
+        settings: { slidesToShow: 4 }
+      },
+
+      {
+        breakpoint: 768,
+        settings: { slidesToShow: 3 }
+      },
+
+      {
+        breakpoint: 640,
+        settings: { slidesToShow: 2 }
+      },
+
+      {
+        breakpoint: 480,
+        settings: { slidesToShow: 1 }
+      }
+
+    ]
   };
 
   return (
-    <div className="px-12 mb-20">
+    <div className="px-4 sm:px-8 md:px-12 mb-20">
 
-      <h2 className="text-white text-2xl mb-4">Originals</h2>
+      <h2 className="text-white text-lg sm:text-xl md:text-2xl mb-4">
+        Originals
+      </h2>
 
       {loading ? (
         <Loader />
       ) : (
+
         <Slider {...settings}>
+
           {movies.map((movie) => (
-            <MovieCard key={movie._id} movie={movie} />
+
+            <div key={movie._id} className="px-2">
+              <MovieCard movie={movie} />
+            </div>
+
           ))}
+
         </Slider>
+
       )}
 
     </div>

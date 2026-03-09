@@ -24,9 +24,9 @@ const Hero = () => {
       );
 
       const data = await res.json();
-      
 
-      setMovie(data[0]);
+      const heroMovie = data[3];
+      setMovie(heroMovie);
 
       const watchlistRes = await fetch(
         `${API_BASE_URL}/api/watchlist`,
@@ -49,8 +49,6 @@ const Hero = () => {
     fetchHeroMovie();
 
   }, [token]);
-
-
 
   const addToWatchlist = async () => {
 
@@ -76,7 +74,7 @@ const Hero = () => {
       );
 
       if (res.ok) {
-        toast.success("Added to Watchlist ");
+        toast.success("Added to Watchlist");
         setInWatchlist(true);
       }
 
@@ -86,52 +84,51 @@ const Hero = () => {
 
   };
 
-
   if (!movie) return null;
 
   return (
     <div
-      className="relative w-full h-[85vh] bg-cover bg-center flex items-center px-12"
+      className="relative w-full h-[60vh] sm:h-[70vh] md:h-[80vh] lg:h-[85vh] bg-cover bg-center flex items-center px-4 sm:px-8 md:px-12"
       style={{ backgroundImage: `url(${movie.backdrop_path})` }}
     >
-      <div className="text-white max-w-xl">
 
-        <h1 className="text-5xl font-semibold mb-4">
+      {/* Overlay */}
+      <div className="absolute inset-0 bg-black/50"></div>
+
+      <div className="relative text-white max-w-xl">
+
+        <h1 className="text-3xl sm:text-4xl md:text-5xl font-semibold mb-3 md:mb-4">
           {movie.title}
         </h1>
 
-        <p className="text-gray-200 mb-6">
+        <p className="text-sm sm:text-base md:text-lg text-gray-200 mb-5 md:mb-6 line-clamp-3">
           {movie.overview}
         </p>
 
-        <div className="flex gap-4">
+        <div className="flex flex-col sm:flex-row gap-3 sm:gap-4">
 
           <a
             href={movie.trailer_url}
             target="_blank"
             rel="noreferrer"
-            className="bg-white text-black px-6 py-2 rounded font-medium hover:bg-gray-200 transition"
+            className="bg-white text-black px-5 py-2 rounded font-medium hover:bg-gray-200 transition text-center"
           >
             ▶ Play
           </a>
 
           {inWatchlist ? (
-
             <button
-              className="bg-gray-600 px-6 py-2 rounded cursor-not-allowed"
+              className="bg-gray-600 px-5 py-2 rounded cursor-not-allowed"
             >
               ✓ In Watchlist
             </button>
-
           ) : (
-
             <button
               onClick={addToWatchlist}
-              className="bg-red-600 px-6 py-2 rounded hover:bg-red-700 transition"
+              className="bg-red-600 px-5 py-2 rounded hover:bg-red-700 transition"
             >
-              + Watchlist
+              Add to Watchlist
             </button>
-
           )}
 
         </div>
