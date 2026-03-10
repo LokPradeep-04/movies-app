@@ -1,1 +1,13 @@
 @import "tailwindcss";
+.react-multiple-carousel__arrow {
+  background: transparent;
+  min-width: 0;
+  min-height: 0;
+  width: auto;
+  height: auto;
+}
+
+.react-multiple-carousel__arrow::before {
+  font-size: 40px;
+  color: white;
+}

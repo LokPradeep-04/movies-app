@@ -2,7 +2,7 @@ import API_BASE_URL from "../config/config";
 import { useState, useEffect } from "react";
 import MovieCard from "./MovieCard";
 import Cookies from "js-cookie";
-import Slider from "react-slick";
+import Carousel from "react-multi-carousel";
 import Loader from "./Loader";
 
 const OriginalsCarousel = () => {
@@ -45,40 +45,27 @@ const OriginalsCarousel = () => {
 
   }, []);
 
-  const settings = {
-    dots: false,
-    infinite: false,
-    speed: 500,
-    slidesToShow: 6,
-    slidesToScroll: 2,
-    responsive: [
-
-      {
-        breakpoint: 1280,
-        settings: { slidesToShow: 5 }
-      },
-
-      {
-        breakpoint: 1024,
-        settings: { slidesToShow: 4 }
-      },
-
-      {
-        breakpoint: 768,
-        settings: { slidesToShow: 3 }
-      },
-
-      {
-        breakpoint: 640,
-        settings: { slidesToShow: 2 }
-      },
-
-      {
-        breakpoint: 480,
-        settings: { slidesToShow: 1 }
-      }
-
-    ]
+  const responsive = {
+    desktop: {
+      breakpoint: { max: 3000, min: 1280 },
+      items: 6
+    },
+    laptop: {
+      breakpoint: { max: 1280, min: 1024 },
+      items: 5
+    },
+    tablet: {
+      breakpoint: { max: 1024, min: 768 },
+      items: 4
+    },
+    mobile: {
+      breakpoint: { max: 768, min: 640 },
+      items: 3
+    },
+    smallMobile: {
+      breakpoint: { max: 640, min: 0 },
+      items: 2
+    }
   };
 
   return (
@@ -92,17 +79,23 @@ const OriginalsCarousel = () => {
         <Loader />
       ) : (
 
-        <Slider {...settings}>
+       <Carousel
+  responsive={responsive}
+  infinite={false}
+  swipeable
+  draggable
+  keyBoardControl
+  arrows
+  renderButtonGroupOutside={false}
+  containerClass="carousel-container"
+  itemClass="px-2"
+>
 
           {movies.map((movie) => (
-
-            <div key={movie._id} className="px-2">
-              <MovieCard movie={movie} />
-            </div>
-
+            <MovieCard key={movie._id} movie={movie} />
           ))}
 
-        </Slider>
+        </Carousel>
 
       )}
 
