@@ -11,10 +11,10 @@ import NotFound from './pages/NotFound'
 import Watchlist from "./pages/Watchlist"
 import Search from './pages/Search'
 import Account from './pages/Account'
-import AdminLogin from './pages/admin/AdminLogin'
-import AdminDashboard from './pages/admin/AdminDashboard'
-import AdminMovies from './pages/admin/AdminMovies'
-import AdminUsers from './pages/admin/AdminUsers'
+import AdminLogin from './pages/admin/AdminLogin.jsx'
+import AdminDashboard from './pages/admin/AdminDashboard.jsx'
+import AdminMovies from './pages/admin/AdminMovies.jsx'
+import AdminUsers from './pages/admin/AdminUsers.jsx'
 import Chatbot from './components/Chatbot'
 const App = () => {
   return (
