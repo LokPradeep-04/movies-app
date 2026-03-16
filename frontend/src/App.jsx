@@ -31,7 +31,7 @@ const App = () => {
         <Route path='/account' element={<ProtectedRoute><Account /></ProtectedRoute>} />
         <Route path="/watchlist" element={<ProtectedRoute><Watchlist /></ProtectedRoute>} />
 
-        {/* ── Admin Routes */}
+       
         <Route path='/admin/login' element={<AdminLogin />} />
         <Route path='/admin/dashboard' element={<AdminProtectedRoute><AdminDashboard /></AdminProtectedRoute>} />
         <Route path='/admin/movies' element={<AdminProtectedRoute><AdminMovies /></AdminProtectedRoute>} />

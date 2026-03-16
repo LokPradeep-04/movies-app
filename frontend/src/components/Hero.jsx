@@ -92,7 +92,7 @@ const Hero = () => {
       style={{ backgroundImage: `url(${movie.backdrop_path})` }}
     >
 
-      {/* Overlay */}
+      
       <div className="absolute inset-0 bg-black/50"></div>
 
       <div className="relative text-white max-w-xl">

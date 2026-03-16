@@ -54,7 +54,7 @@ const Account = () => {
 
         <hr className="border-gray-300 mb-8" />
 
-        {/* Username */}
+        
         <div className="flex flex-col md:flex-row md:items-center md:gap-20 mb-6">
 
           <p className="text-gray-400 font-medium md:min-w-40">
@@ -69,7 +69,7 @@ const Account = () => {
 
         <hr className="border-gray-300 mb-8" />
 
-        {/* Email */}
+       
         <div className="flex flex-col md:flex-row md:items-center md:gap-20 mb-6">
 
           <p className="text-gray-400 font-medium md:min-w-40">

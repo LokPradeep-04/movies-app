@@ -54,7 +54,7 @@ const Popular = () => {
 
       <Navbar />
 
-      {/* Back Button */}
+      
       <div className="pt-24 px-4 sm:px-8 md:px-12">
         <button
           onClick={() => navigate(-1)}

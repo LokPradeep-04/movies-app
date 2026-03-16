@@ -3,19 +3,19 @@ const Movie = require("../models/movie.model")
 
 const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY)
 
-// In-memory store: { userId: [ {role, parts}, ... ] }
+
 const conversationHistory = {}
 
 const chat = async (req, res) => {
     const { message } = req.body
-    const userId = req.user.id // from your AuthMiddleware
+    const userId = req.user.id
 
     if (!message || message.trim() === "") {
         return res.status(400).json({ error: "Message is required" })
     }
 
     try {
-        // 1. Fetch movies from DB
+        
         const movies = await Movie.find().lean()
 
         const trendingMovies = movies.filter(m => m.category === "trending").map(m => m.title)
@@ -30,7 +30,7 @@ const chat = async (req, res) => {
             runtime: m.runtime
         }))
 
-        // 2. System prompt (same as before)
+      
         const systemPrompt = `You are a friendly and helpful assistant for a Netflix-style movies app called "MoviesApp".
 
 APP OVERVIEW:
@@ -91,38 +91,38 @@ RESPONSE RULES:
 - If user asks something unrelated politely say you can only help with MoviesApp related questions
 - Use simple conversational language`
 
-        // 3. Initialize history for this user if first message
+       
         if (!conversationHistory[userId]) {
             conversationHistory[userId] = []
         }
 
-        // 4. Add the new user message to their history
+       
         conversationHistory[userId].push({
             role: "user",
             parts: [{ text: message.trim() }]
         })
 
-        // 5. Start Gemini chat with full history
+     
         const model = genAI.getGenerativeModel({
             model: "gemini-2.5-flash",
             systemInstruction: systemPrompt
         })
 
         const chatSession = model.startChat({
-            history: conversationHistory[userId].slice(0, -1) // all except the latest
+            history: conversationHistory[userId].slice(0, -1) 
         })
 
-        // 6. Send the latest message
+       
         const result = await chatSession.sendMessage(message.trim())
         const reply = result.response.text()
 
-        // 7. Save assistant reply to history
+     
         conversationHistory[userId].push({
             role: "model",
             parts: [{ text: reply }]
         })
 
-        // 8. Optional: cap history to last 20 messages to avoid token bloat
+       
         if (conversationHistory[userId].length > 20) {
             conversationHistory[userId] = conversationHistory[userId].slice(-20)
         }

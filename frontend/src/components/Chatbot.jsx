@@ -85,7 +85,7 @@ const Chatbot = () => {
             {isOpen && (
                 <div className="mb-3 w-[420px] bg-[#1a1a1a] rounded-2xl shadow-2xl flex flex-col overflow-hidden border border-gray-800">
 
-                    {/* Header */}
+                    
                     <div className="bg-red-600 px-4 py-3 flex items-center justify-between">
                         <div className="flex items-center gap-2">
                             <div className="w-2 h-2 bg-white rounded-full animate-pulse" />
@@ -102,7 +102,7 @@ const Chatbot = () => {
                         </button>
                     </div>
 
-                    {/* Messages */}
+                    
                     <div className="flex flex-col gap-3 p-4 h-[450px] overflow-y-auto scrollbar-hide">
 
                         {messages.map((msg, index) => (
@@ -129,7 +129,7 @@ const Chatbot = () => {
                             </div>
                         ))}
 
-                        {/* Suggestions */}
+                       
                         {messages.length === 1 && (
                             <div className="flex flex-col gap-2 mt-2">
                                 {suggestions.map((s, index) => (
@@ -145,7 +145,7 @@ const Chatbot = () => {
                             </div>
                         )}
 
-                        {/* Typing Indicator */}
+                        
                         {loading && (
                             <div className="flex justify-start">
                                 <div className="bg-[#2a2a2a] px-4 py-3 rounded-2xl rounded-bl-none">
@@ -161,7 +161,7 @@ const Chatbot = () => {
                         <div ref={messagesEndRef} />
                     </div>
 
-                    {/* Input */}
+                   
                     <div className="px-3 py-3 border-t border-gray-800 flex items-center gap-2">
 
                         <input
@@ -194,7 +194,7 @@ const Chatbot = () => {
                 </div>
             )}
 
-            {/* Chat Button */}
+            
             <button
                 onClick={() => setIsOpen(!isOpen)}
                 className="bg-red-600 hover:bg-red-700 text-white w-14 h-14 rounded-full shadow-lg flex items-center justify-center transition"

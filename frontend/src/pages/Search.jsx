@@ -55,7 +55,7 @@ const Search = () => {
         fetchedData={fetchedData}
       />
 
-      {/* Empty Search */}
+      
       {emptySearch ? (
 
         <div className="flex justify-center items-center pt-32 px-4 text-center">
