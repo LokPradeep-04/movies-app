@@ -16,13 +16,14 @@ const signup =async (req,res)=>{
     const hashPassword = await bcrypt.hash(password,10)
 
     const userData = await User.create({
-    username,
-    email,
-    password: hashPassword
+        username,
+        email,
+        password: hashPassword
     })
     await userData.save()
 
-    res.status(201).json({message : "user created"})
+    const token = jwt.sign({ userId: userData._id }, process.env.JWT_SECRET, { expiresIn: '7d' })
+    res.status(201).json({ message: "user created", token: token })
 }
 
 const login = async (req,res)=>{

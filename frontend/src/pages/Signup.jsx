@@ -3,56 +3,62 @@ import { Link } from 'react-router-dom'
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { toast } from "sonner";
-const Signup=()=> {
-  const [username,setUsername] = useState('')
-  const [email,setEmail] = useState('')
-  const [password,setPassword] = useState('')
-  const [error,setError] = useState("")
-  const navigate = useNavigate()
-  const handleUsername = (e)=>{
-    setUsername(e.target.value)
-    setError("")
-  }
-  const handleEmail = (e)=>{
-    setEmail(e.target.value)
-    setError("")
-  }
-  const handlePassword = (e)=>{
-    setPassword(e.target.value)
-    setError("")
-  }
-  const onSubmitForm = async (e)=>{
-  e.preventDefault()
+import Cookies from "js-cookie";
+import API_BASE_URL from '../config/config'
 
-  try{
-    const obj = {
-      username,
-      email,
-      password
+const Signup = () => {
+    const [username, setUsername] = useState('')
+    const [email, setEmail] = useState('')
+    const [password, setPassword] = useState('')
+    const [error, setError] = useState("")
+    const navigate = useNavigate()
+
+    const handleUsername = (e) => {
+        setUsername(e.target.value)
+        setError("")
+    }
+    const handleEmail = (e) => {
+        setEmail(e.target.value)
+        setError("")
+    }
+    const handlePassword = (e) => {
+        setPassword(e.target.value)
+        setError("")
+    }
+    const onSubmitForm = async (e) => {
+        e.preventDefault()
+
+        try {
+            const obj = {
+                username,
+                email,
+                password
+            }
+
+            const options = {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(obj)
+            }
+
+            const response = await fetch(`${API_BASE_URL}/api/auth/signup`, options)
+            const data = await response.json()
+
+            if (response.ok) {
+                Cookies.set("accessToken", data.token, { expires: 7 })
+                toast.success("Account created successfully 🎉")
+                navigate("/")
+            } else {
+                setError(data.message)
+            }
+
+        } catch (err) {
+            setError("Something went wrong")
+        }
     }
 
-    const options = {
-      method : "POST",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify(obj)
-    }
-
-    const response = await fetch("http://localhost:3000/api/auth/signup", options)
-    const data = await response.json()
-
-    if(response.ok){
-      navigate("/login")
-      toast.success("Account created successfully 🎉")
-    }else{
-      setError(data.message)
-    }
-
-  }catch(err){
-    setError("Something went wrong")
-  }
-}
 
   return (
     <div
