@@ -18,9 +18,10 @@ connectDB()
 
 app.use('/api/auth', authRouter)
 app.use('/api/movies', movieRouter)
-app.use('/api/watchlist',watchlistRouter)
-app.use('/api/admin',adminRouter)
-app.use('/api/chat', chatRouter) 
-app.listen(3000, () => {
-  console.log("Server is Running")
+app.use('/api/watchlist', watchlistRouter)
+app.use('/api/admin', adminRouter)
+app.use('/api/chat', chatRouter)
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => {
+    console.log(`Server is Running on port ${PORT}`)
 })
