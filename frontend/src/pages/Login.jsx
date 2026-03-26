@@ -52,12 +52,11 @@ const Login = () => {
       className="min-h-screen bg-cover bg-center flex justify-center items-center px-4 sm:px-6 relative"
       style={{ backgroundImage: `url(${images.background_image})` }}
     >
-      <Link to="/">
-        <img
-          src={images.logo}
-          alt="logo"
-          className="absolute top-6 left-6 w-24 sm:w-28"
-        />
+      <Link to="/" className="absolute top-6 left-6 flex items-center">
+        <span className="text-xl sm:text-2xl font-black tracking-tighter uppercase italic">
+          <span className="text-red-600">Movie</span>
+          <span className="text-white">Verse</span>
+        </span>
       </Link>
 
       <div className="w-full max-w-md bg-black/60 backdrop-blur-sm p-6 sm:p-8 rounded shadow-xl">

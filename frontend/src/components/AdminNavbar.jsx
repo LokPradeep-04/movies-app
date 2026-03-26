@@ -24,7 +24,7 @@ const AdminNavbar = () => {
       <div className="flex items-center justify-between px-4 sm:px-8 md:px-10 py-4">
 
         <h1 className="text-white text-lg md:text-xl font-bold">
-          🎬 Admin Panel
+          🎬 MovieVerse Admin
         </h1>
 
         <div className="hidden md:flex items-center gap-8">

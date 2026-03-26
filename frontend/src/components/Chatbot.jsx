@@ -8,7 +8,7 @@ const Chatbot = () => {
     const [messages, setMessages] = useState([
         {
             role: "bot",
-            text: "Hi! I am your MoviesApp assistant. Ask me anything about the app or movies!",
+            text: "Hi! I am your MovieVerse assistant. Ask me anything about the app or movies!",
             time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
         }
     ])
@@ -101,7 +101,7 @@ const Chatbot = () => {
                             </div>
                             <div className="flex flex-col">
                                 <span className="text-white font-bold text-base leading-none">
-                                    CineBot AI
+                                    MovieVerse AI
                                 </span>
                                 <span className="text-red-100 text-[10px] font-medium mt-1 uppercase tracking-wider">
                                     Online Assistant
@@ -204,7 +204,7 @@ const Chatbot = () => {
                                 value={input}
                                 onChange={(e) => setInput(e.target.value)}
                                 onKeyDown={(e) => e.key === "Enter" && sendMessage()}
-                                placeholder="Message CineBot..."
+                                placeholder="Message MovieVerse AI..."
                                 className="flex-1 bg-transparent text-white text-[13.5px] px-3 py-2 focus:outline-none placeholder-gray-500"
                             />
 
@@ -243,7 +243,7 @@ const Chatbot = () => {
                 
                 {!isOpen && (
                    <span className="absolute right-16 scale-0 group-hover:scale-100 transition-transform bg-white text-black text-[11px] font-bold px-3 py-1.5 rounded-lg shadow-xl whitespace-nowrap pointer-events-none origin-right">
-                       Chat with CineBot AI
+                       Chat with MovieVerse AI
                    </span>
                 )}
             </button>

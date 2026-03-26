@@ -102,8 +102,11 @@ const Navbar = (props) => {
 
         <div className='flex items-center gap-6 md:gap-12'>
 
-          <Link to='/'>
-            <img src={images.logo} className='w-20 md:w-28' />
+          <Link to='/' className="flex items-center">
+            <span className="text-2xl md:text-3xl font-black tracking-tighter uppercase italic">
+              <span className="text-red-600">Movie</span>
+              <span className="text-white">Verse</span>
+            </span>
           </Link>
 
       
